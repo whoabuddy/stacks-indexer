@@ -3,10 +3,15 @@ account_id = "98288619169b23339dc74ce53fa0b5f1"
 main = "src/index.ts"
 workers_dev = true
 compatibility_date = "2022-11-14"
+kv_namespaces = [
+  { binding = "sip015_index", id = "6894f2e449454349abe110c77aeaa900", preview_id = "c596dc54afb9429b9b8e37108a837641" }
+]
 
 [env.production]
 route = "indexer.sip015.xyz/*"
-zone_id = "a4a93639d70ce90f259a009c2d425a5a"
+kv_namespaces = [
+  { binding = "sip015_index", id = "6894f2e449454349abe110c77aeaa900" }
+]
 
 # [triggers]
 # crons = ["* * * * *"]
