@@ -1,3 +1,12 @@
-name = "indexer"
+name = "sip015-indexer"
+account_id = "98288619169b23339dc74ce53fa0b5f1"
 main = "src/index.ts"
+workers_dev = true
 compatibility_date = "2022-11-14"
+
+[env.production]
+route = "indexer.sip015.xyz/*"
+zone_id = "a4a93639d70ce90f259a009c2d425a5a"
+
+# [triggers]
+# crons = ["* * * * *"]
