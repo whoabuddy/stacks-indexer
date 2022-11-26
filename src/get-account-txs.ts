@@ -1,4 +1,4 @@
-import { fetchJson, StacksTxList } from "./lib/utils";
+import { dbgLog, fetchJson, StacksTxList } from "./lib/utils";
 
 // bonus points if you use your own node
 const stxApi = "https://stacks-node-api.mainnet.stacks.co";
@@ -25,7 +25,7 @@ export const getAccountTxs = async (
       txResults.push(tx);
       counter++;
     }
-    checkAll && console.log(`counter: ${counter} total: ${total}`);
+    checkAll && dbgLog(`counter: ${counter} total: ${total}`);
   } while (checkAll && counter < total);
 
   const finalTxList: StacksTxList = {

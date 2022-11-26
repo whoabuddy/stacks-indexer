@@ -4,6 +4,7 @@ import {
   AddressVote,
   ADDRESS_STX_NO,
   ADDRESS_STX_YES,
+  dbgLog,
   Env,
   Sip015Vote,
   VOTE_END_BLOCK,
@@ -30,10 +31,10 @@ export const getSip015Votes = async (env: Env): Promise<Response> => {
     if (tx.block_height > VOTE_END_BLOCK) return false;
     return true;
   });
-  console.log(`yes txs: ${yesTxList.results.length}`);
-  console.log(`yes votes: ${yesVotes.length}`);
+  dbgLog(`yes txs: ${yesTxList.results.length}`);
+  dbgLog(`yes votes: ${yesVotes.length}`);
   const discardedYes = yesTxList.results.length - yesVotes.length;
-  console.log(`discarded: ${discardedYes}`);
+  dbgLog(`discarded: ${discardedYes}`);
   voteTotals.totalDiscardedTxs += discardedYes;
 
   for (const voteTx of yesVotes) {
@@ -61,10 +62,10 @@ export const getSip015Votes = async (env: Env): Promise<Response> => {
     if (tx.block_height > VOTE_END_BLOCK) return false;
     return true;
   });
-  console.log(`no txs: ${noTxList.results.length}`);
-  console.log(`no votes: ${noVotes.length}`);
+  dbgLog(`no txs: ${noTxList.results.length}`);
+  dbgLog(`no votes: ${noVotes.length}`);
   const discardedNo = noTxList.results.length - noVotes.length;
-  console.log(`discarded: ${discardedNo}`);
+  dbgLog(`discarded: ${discardedNo}`);
   voteTotals.totalDiscardedTxs += discardedNo;
 
   for (const voteTx of noVotes) {
