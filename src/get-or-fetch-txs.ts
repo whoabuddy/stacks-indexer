@@ -28,11 +28,13 @@ export const getOrFetchTxs = async (
       };
       return txList;
     }
-    dbgLog(`totals do not match, fetching fresh data from API`);
+    dbgLog(`totals do not match, continuing`);
   }
 
   // otherwise, fetch all TX from API and store in KV
+  dbgLog(`fetching fresh transaction data from the API`);
   const txList = await getAccountTxs(targetAddress, true);
+  dbgLog(`storing transaction data in KV`);
   await env.sip015_index.put(targetAddress, JSON.stringify(txList.results), {
     metadata: {
       totalProcessed: txList.totalProcessed,

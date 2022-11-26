@@ -7,12 +7,13 @@ import { StacksMainnet } from "micro-stacks/network";
 /////////////////////////
 
 // logging config
-const ENABLE_LOGS = false;
+const ENABLE_LOGS = true;
 
 // stacks helpers
 export const POX_CONTRACT = "SP000000000000000000002Q6VF78.pox";
 export const POX_FUNCTION = "get-stacker-info";
 export const STX_NETWORK = new StacksMainnet();
+export const STX_API = "https://stacks-node-api.mainnet.stacks.co";
 
 // sip015 helpers
 export const ADDRESS_STX_YES = "SP00000000000003SCNSJTCHE66N2PXHX";
@@ -48,7 +49,6 @@ export const fetchJson = async (url: string): Promise<any> => {
   const response = await throttle(() => fetch(url));
   if (response.status === 200) {
     const json = await response.json();
-    dbgLog(`fetchJson: ${JSON.stringify(json)}`);
     return json;
   }
   throw new Error(

@@ -1,7 +1,4 @@
-import { dbgLog, fetchJson, StacksTxList } from "./lib/utils";
-
-// bonus points if you use your own node
-const stxApi = "https://stacks-node-api.mainnet.stacks.co";
+import { dbgLog, fetchJson, StacksTxList, STX_API } from "./lib/utils";
 
 export const getAccountTxs = async (
   principal: string,
@@ -13,9 +10,10 @@ export const getAccountTxs = async (
   let txResults = [];
 
   const url = new URL(
-    `${stxApi}/extended/v1/address/${principal}/transactions`
+    `/extended/v1/address/${principal}/transactions`,
+    STX_API
   );
-
+  dbgLog(`fetching transactions for ${principal}`);
   do {
     url.searchParams.set("limit", limit.toString());
     url.searchParams.set("offset", counter.toString());
