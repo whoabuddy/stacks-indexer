@@ -1,5 +1,5 @@
 import { validateStacksAddress } from "micro-stacks/crypto";
-import { dbgLog, Env, printDivider, printTimeStamp } from "./lib/utils";
+import { dbgLog, Env, printDivider } from "./lib/utils";
 import { getOrFetchTxs } from "./get-or-fetch-txs";
 import { getSip015Votes } from "./get-sip015-votes";
 
