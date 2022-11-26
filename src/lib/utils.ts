@@ -1,11 +1,31 @@
 import throttledQueue from "throttled-queue";
 import { Transaction } from "@stacks/stacks-blockchain-api-types";
+import { StacksMainnet } from "micro-stacks/network";
+
+/////////////////////////
+// CONSTANTS
+/////////////////////////
 
 // logging config
 const ENABLE_LOGS = false;
-export const dbgLog = (msg: string) => ENABLE_LOGS && console.log(msg);
+
+// stacks helpers
+export const POX_CONTRACT = "SP000000000000000000002Q6VF78.pox";
+export const POX_FUNCTION = "get-stacker-info";
+export const STX_NETWORK = new StacksMainnet();
+
+// sip015 helpers
+export const ADDRESS_STX_YES = "SP00000000000003SCNSJTCHE66N2PXHX";
+export const ADDRESS_STX_NO = "SP00000000000000DSQJTCHE66XE1NHQ";
+export const VOTE_START_BLOCK = 82914;
+export const VOTE_END_BLOCK = 87114;
+
+/////////////////////////
+// HELPERS
+/////////////////////////
 
 // print helpers
+export const dbgLog = (msg: string) => ENABLE_LOGS && console.log(msg);
 export const printDivider = () => console.log(`------------------------------`);
 export const printTimeStamp = () => {
   let newDate = new Date().toLocaleString();
@@ -19,8 +39,8 @@ export const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms, undefined));
 };
 
-// throttle to 1 requests per second
-const throttle = throttledQueue(1, 1000, true);
+// generic queue throttled to 1 request per second
+export const throttle = throttledQueue(1, 1000, true);
 
 // fetch and return JSON from URL
 export const fetchJson = async (url: string): Promise<any> => {
@@ -35,6 +55,16 @@ export const fetchJson = async (url: string): Promise<any> => {
     `fetchJson: ${url} ${response.status} ${response.statusText}`
   );
 };
+
+/////////////////////////
+// INTERFACES
+/////////////////////////
+
+// interface for KV binding
+export interface Env {
+  // KV binding
+  sip015_index: KVNamespace;
+}
 
 // interface for kv metadata
 export interface StacksTxKvMetadata {
@@ -60,9 +90,15 @@ export interface Sip015Vote {
   };
 }
 
+// interface for stacking data
+export interface AddressStacking {
+  amountStacked?: number;
+  firstCycle?: number;
+  lockPeriod?: number;
+}
+
 // interface for individual address voting record
-export interface AddressVote {
-  amountStacked: number;
+export interface AddressVote extends AddressStacking {
   txid: string;
   vote: boolean;
 }
