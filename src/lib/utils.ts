@@ -1,4 +1,5 @@
 import throttledQueue from "throttled-queue";
+import { Transaction } from "@stacks/stacks-blockchain-api-types";
 
 // logging config
 const ENABLE_LOGS = false;
@@ -46,5 +47,22 @@ export interface StacksTxKvMetadata {
 // interface for aggregating TX responses
 // TODO: make an array of stacks tx results
 export interface StacksTxList extends StacksTxKvMetadata {
-  results: any[];
+  results: Array<Transaction>;
+}
+
+// interface for overall voting record
+export interface Sip015Vote {
+  totalYes: number;
+  totalNo: number;
+  totalDiscardedTxs: number;
+  votes: {
+    [key: string]: AddressVote[];
+  };
+}
+
+// interface for individual address voting record
+export interface AddressVote {
+  amountStacked: number;
+  txid: string;
+  vote: boolean;
 }

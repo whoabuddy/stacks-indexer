@@ -25,7 +25,7 @@ export const getAccountTxs = async (
       txResults.push(tx);
       counter++;
     }
-    console.log(`counter: ${counter} total: ${total}`);
+    checkAll && console.log(`counter: ${counter} total: ${total}`);
   } while (checkAll && counter < total);
 
   const finalTxList: StacksTxList = {
